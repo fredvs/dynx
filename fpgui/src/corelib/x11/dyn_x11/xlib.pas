@@ -13,11 +13,19 @@ uses
 {$define MACROS}
 
  const
+ 
  {$IFDEF LINUX}
-  libX11='/usr/lib/x86_64-linux-gnu/libX11.so.6';
+ {$if defined(cpu64)}
+   libX11='/usr/lib/x86_64-linux-gnu/libX11.so.6';
  {$ENDIF}
+ {$if defined(cpu86)}
+  libX11='/usr/lib/i386-linux-gnu/libX11.so.6';
+ {$ENDIF}
+ 
+ {$ENDIF}
+ 
   {$IFDEF FREEBSD} 
-  libX11='/usr/local/lib/x86_64-linux-gnu/libX11.so.6';
+  libX11='/usr/local/lib/libX11.so.6';
  {$ENDIF}
 
 type
