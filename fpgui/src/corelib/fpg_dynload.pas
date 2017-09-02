@@ -13,15 +13,17 @@ uses
   fX11='libX11.so.6';
   fXft='libXft.so.2';  
   
-Function fpg_loaddynlib(const libfilename1:string = '' ; const libfilename2:string = '') :boolean;
-procedure fpg_unloaddynlib();
+Function fpg_LoadDynLib(const libfilename1:string = '' ; const libfilename2:string = '') :boolean;
+procedure fpg_UnLoadDynLib();
 
 implementation
 
-Function fpg_loaddynlib(const libfilename1:string = '' ; const libfilename2:string = '') :boolean;
+Function fpg_LoadDynLib(const libfilename1:string = '' ; const libfilename2:string = '') :boolean;
 var
 libX11, libXft: string; 
 begin
+result := false;
+
 if (libfilename1 = '') and (libfilename2 = '') then
 begin
 libX11 := fX11;
@@ -33,17 +35,13 @@ libXft := libfilename2;
 end;
 
 if x_Load(libX11) then
- 
- result := xft_Load(libXft);
-  
+  result := xft_Load(libXft);
 end;
 
-procedure fpg_unloaddynlib() ;
+procedure fpg_UnLoadDynLib() ;
 begin
-
   xft_unLoad();
   x_unLoad();
-    
 end;
 
 end.
