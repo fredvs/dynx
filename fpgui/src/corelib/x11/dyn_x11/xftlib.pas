@@ -17,18 +17,8 @@ uses
   ;
     
 const
- {$IFDEF LINUX}
- {$if defined(cpu64)}  
-  libXft='/usr/lib/x86_64-linux-gnu/libXft.so.2';
- {$ENDIF}
- {$if defined(cpu86)}
-  libXft='/usr/lib/i386-linux-gnu/libXft.so.2';
- {$ENDIF}
- {$ENDIF}
  
-  {$IFDEF FREEBSD} 
-  libXft='/usr/local/lib/libXft.so.2';
- {$ENDIF}
+  libXft='libXft.so.2';
 
  type
   TPicture = longword;
