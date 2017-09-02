@@ -229,7 +229,7 @@ var XRenderCompositeString8: procedure(dpy:PDisplay; op:longint; src:TPicture; d
 
     var ReferenceCounter : cardinal = 0;  // Reference counter
          
-    function xren_IsLoaded : boolean; inline; 
+    function xren_IsLoaded() : boolean; inline; 
 
     Function xren_Load(const libfilename:string = libXren) :boolean; // load the lib
 
@@ -237,7 +237,7 @@ var XRenderCompositeString8: procedure(dpy:PDisplay; op:longint; src:TPicture; d
 
 implementation
 
-function xren_IsLoaded: boolean;
+function xren_IsLoaded(): boolean;
 begin
  Result := (xren_Handle <> dynlibs.NilHandle);
 end;
@@ -274,13 +274,13 @@ Pointer(XRenderQueryExtension):=DynLibs.GetProcedureAddress(xren_Handle,PChar('X
  Pointer(XRenderSetPictureClipRectangles):=DynLibs.GetProcedureAddress(x_Handle,PChar('XRenderSetPictureClipRectangles'));
  
 end;
-   Result := xren_IsLoaded;
+   Result := xren_IsLoaded();
    ReferenceCounter:=1;   
 end;
 
 end;
 
-Procedure xren_Unload;
+Procedure xren_Unload();
 begin
 // < Reference counting
   if ReferenceCounter > 0 then
@@ -288,7 +288,7 @@ begin
   if ReferenceCounter > 0 then
     exit;
   // >
-  if xren_IsLoaded then
+  if xren_IsLoaded() then
   begin
     DynLibs.UnloadLibrary(xren_Handle);
     xren_Handle:=DynLibs.NilHandle;

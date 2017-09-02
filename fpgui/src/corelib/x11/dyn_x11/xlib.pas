@@ -2222,7 +2222,7 @@ function XSynchronize(para1:PDisplay; para2:Boolean):funcdisp;
 
     var ReferenceCounter : cardinal = 0;  // Reference counter
          
-    function x_IsLoaded : boolean; inline; 
+    function x_IsLoaded() : boolean; inline; 
 
     Function x_Load(const libfilename:string = libX11) :boolean; // load the lib
 
@@ -2230,7 +2230,7 @@ function XSynchronize(para1:PDisplay; para2:Boolean):funcdisp;
 
 implementation
 
-function x_IsLoaded: boolean;
+function x_IsLoaded(): boolean;
 begin
  Result := (x_Handle <> dynlibs.NilHandle);
 end;
@@ -2729,13 +2729,13 @@ Pointer(XSetWMProtocols):=DynLibs.GetProcedureAddress(x_Handle,PChar('XSetWMProt
  Pointer(XXorRegion):=DynLibs.GetProcedureAddress(x_Handle,PChar('XXorRegion'));
 
 end;
-   Result := x_IsLoaded;
+   Result := x_IsLoaded();
    ReferenceCounter:=1;   
 end;
 
 end;
 
-Procedure x_Unload;
+Procedure x_Unload();
 begin
 // < Reference counting
   if ReferenceCounter > 0 then
@@ -2743,7 +2743,7 @@ begin
   if ReferenceCounter > 0 then
     exit;
   // >
-  if x_IsLoaded then
+  if x_IsLoaded() then
   begin
     DynLibs.UnloadLibrary(x_Handle);
     x_Handle:=DynLibs.NilHandle;
@@ -3075,71 +3075,5 @@ begin
 end;
 
 {$endif MACROS}
-
-{
-function XClearArea(para1:PDisplay; para2:TWindow; para3:cint; para4:cint; para5:cuint; para6:cuint; para7:Boolean):cint;
-
-begin
-  Result:=XClearArea(para1,para2,para3,para4,para5,para6,Ord(Para7));
-end;
-
-function XGetWindowProperty(para1: PDisplay; para2: TWindow; para3: TAtom;
-  para4: clong; para5: clong; para6: Boolean; para7: TAtom; para8: PAtom;
-  para9: Pcint; para10: Pculong; para11: Pculong; para12: PPcuchar): cint;
-begin
-  Result := XGetWindowProperty(para1,para2,para3,para4,para5,ord(para6),para7,para8,para9,para10,para11,para12);
-end;
-
-function XGrabKeyboard(para1: PDisplay; para2: TWindow; para3: Boolean;
-  para4: cint; para5: cint; para6: TTime): cint;
-begin
-  Result:=XGrabKeyboard(para1,para2,Ord(para3),para4,para5,para6);
-end;
-
-function XGrabPointer(para1: PDisplay; para2: TWindow; para3: Boolean;
-  para4: cuint; para5: cint; para6: cint; para7: TWindow; para8: TCursor;
-  para9: TTime): cint;
-begin
-  Result:=XGrabPointer(para1,para2,Ord(para3),para4,para5,para6,para7,para8,para9);
-end;
-
-
-function XInternAtom(para1:PDisplay; para2:Pchar; para3:Boolean):TAtom;
-
-begin
-  Result:=XInternAtom(para1,para2,Ord(para3));
-end;
-
-function XInternAtoms(para1:PDisplay; para2:PPchar; para3:cint; para4:Boolean; para5:PAtom):TStatus;
-
-begin
-  Result:=XInternAtoms(para1,para2,para3,Ord(para4),para5);
-end;
-
-function XSendEvent(para1:PDisplay; para2:TWindow; para3:Boolean; para4:clong; para5:PXEvent):TStatus;
-
-begin
-  Result:=XSendEvent(para1,para2,ord(Para3),para4,para5);
-end;
-
-function XSetGraphicsExposures(para1:PDisplay; para2:TGC; para3:Boolean):cint;
-
-begin
-  Result:=XSetGraphicsExposures(Para1,para2,Ord(Para3));
-end;
-
-function XSync(para1:PDisplay; para2:Boolean):cint;
-
-begin
-  Result:=XSync(Para1,Ord(Para2));
-end;
-
-function XSynchronize(para1:PDisplay; para2:boolean):funcdisp;
-
-begin
-  Result:=XSynchronize(para1,Ord(para2));
-end;
-}
-
 
 end.

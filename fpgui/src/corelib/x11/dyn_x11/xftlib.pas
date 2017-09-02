@@ -1,4 +1,5 @@
 { This is the dynamic loader header of xft library.
+  It includes xrender.pp, xatom.pp and xutil.pp.
   Use xft_load() to dynamically load libXft.so.2
   Fredvs ---> fiens@hotmail.com
 }
@@ -16,8 +17,7 @@ uses
   ;
     
 const
- 
-  libXft='libXft.so.2';
+  libXft='/usr/local/lib/libXft.so.2';
 
  type
   TPicture = longword;
@@ -145,7 +145,7 @@ var xft_Handle:TLibHandle=dynlibs.NilHandle; // this will hold our handle for th
 
  var ReferenceCounter : cardinal = 0;  // Reference counter
          
- function xft_IsLoaded : boolean; inline; 
+ function xft_IsLoaded() : boolean; inline; 
 
  Function xft_Load(const libfilename:string = libxft) :boolean; // load the lib
 
@@ -153,7 +153,7 @@ var xft_Handle:TLibHandle=dynlibs.NilHandle; // this will hold our handle for th
 
 implementation
 
-function xft_IsLoaded: boolean;
+function xft_IsLoaded(): boolean;
 begin
  Result := (xft_Handle <> dynlibs.NilHandle);
 end;
@@ -189,13 +189,13 @@ Pointer(XftFontClose):=DynLibs.GetProcedureAddress(xft_Handle,PChar('XftFontClos
 Pointer(XftNameUnparse):=DynLibs.GetProcedureAddress(xft_Handle,PChar('XftNameUnparse'));
 
 end;
-   Result := xft_IsLoaded;
+   Result := xft_IsLoaded();
    ReferenceCounter:=1;   
 end;
 
 end;
 
-Procedure xft_Unload;
+Procedure xft_Unload();
 begin
 // < Reference counting
   if ReferenceCounter > 0 then
@@ -203,7 +203,7 @@ begin
   if ReferenceCounter > 0 then
     exit;
   // >
-  if xft_IsLoaded then
+  if xft_IsLoaded() then
   begin
   //  DynLibs.UnloadLibrary(xft_Handle); // not needed
    xft_Handle:=DynLibs.NilHandle;
