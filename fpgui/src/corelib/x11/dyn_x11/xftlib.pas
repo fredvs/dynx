@@ -1,5 +1,4 @@
 { This is the dynamic loader header of xft library.
-  It includes xrender.pp, xatom.pp and xutil.pp.
   Use xft_load() to dynamically load libXft.so.2
   Fredvs ---> fiens@hotmail.com
 }
