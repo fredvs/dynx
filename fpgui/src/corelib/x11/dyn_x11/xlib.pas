@@ -1535,7 +1535,21 @@ type
 const
   AllPlanes : culong = culong(not 0);
   
- ////// Dynamic load : Vars that will hold our dynamically loaded functions...
+   ////// Dynamic load : Vars that will hold our dynamically loaded functions...
+   
+  var XDefaultRootWindow: function(ADisplay:PDisplay):TWindow;cdecl;
+  var XInternAtom: function(para1:PDisplay; para2:Pchar; para3:TBool):TAtom;cdecl;
+  var XFree: function(para1:pointer):cint;cdecl;
+  var XGetWindowProperty: function(para1:PDisplay; para2:TWindow; para3:TAtom; para4:clong; para5:clong;
+           para6:TBool; para7:TAtom; para8:PAtom; para9:Pcint; para10:Pculong;
+           para11:Pculong; para12:PPcuchar):cint;cdecl;
+ var XChangeProperty: function(para1:PDisplay; para2:TWindow; para3:TAtom; para4:TAtom; para5:cint;
+           para6:cint; para7:Pcuchar; para8:cint):cint;cdecl;
+ var XGetWMProtocols: function(para1:PDisplay; para2:TWindow; para3:PPAtom; para4:Pcint):TStatus;cdecl;
+ var XSetWMProtocols: function(para1:PDisplay; para2:TWindow; para3:PAtom; para4:cint):TStatus;cdecl;
+ var XSendEvent: function(para1:PDisplay; para2:TWindow; para3:TBool; para4:clong; para5:PXEvent):TStatus;cdecl; 
+
+//  
 var XLoadQueryFont: function(para1:PDisplay; para2:Pchar):PXFontStruct;cdecl;  
 var XQueryFont: function(para1:PDisplay; para2:TXID):PXFontStruct;cdecl;
 var XGetMotionEvents: function(para1:PDisplay; para2:TWindow; para3:TTime; para4:TTime; para5:Pcint):PXTimeCoord;cdecl;
@@ -1562,7 +1576,6 @@ var XDisplayName: function(para1:Pchar):Pchar;cdecl;
 var XKeysymToString: function(para1:TKeySym):Pchar;cdecl;
 var XSynchronize: function(para1:PDisplay; para2:TBool):funcdisp;cdecl;
 var XSetAfterFunction: function(para1:PDisplay; para2:funcdisp):funcdisp;cdecl;
-var XInternAtom: function(para1:PDisplay; para2:Pchar; para3:TBool):TAtom;cdecl;
 var XInternAtoms: function(para1:PDisplay; para2:PPchar; para3:cint; para4:TBool; para5:PAtom):TStatus;cdecl;
 var XCopyColormapAndFree: function(para1:PDisplay; para2:TColormap):TColormap;cdecl;
 var XCreateColormap: function(para1:PDisplay; para2:TWindow; para3:PVisual; para4:cint):TColormap;cdecl;
@@ -1610,7 +1623,6 @@ var XAddExtension: function(para1:PDisplay):PXExtCodes;cdecl;
 var XFindOnExtensionList: function(para1:PPXExtData; para2:cint):PXExtData;cdecl;
 var XEHeadOfExtensionList: function(para1:TXEDataObject):PPXExtData;cdecl;
 var XRootWindow: function(ADisplay:PDisplay; AScreenNumber:cint):TWindow;cdecl;
-var XDefaultRootWindow: function(ADisplay:PDisplay):TWindow;cdecl;
 var XRootWindowOfScreen: function(para1:PScreen):TWindow;cdecl;
 var XDefaultVisual: function(para1:PDisplay; para2:cint):PVisual;cdecl;
 var XDefaultVisualOfScreen: function(para1:PScreen):PVisual;cdecl;
@@ -1645,8 +1657,6 @@ var XSetIOErrorHandler: function(para1:TXIOErrorHandler):TXIOErrorHandler;cdecl;
 var XListPixmapFormats: function(para1:PDisplay; para2:Pcint):PXPixmapFormatValues;cdecl;
 var XListDepths: function(para1:PDisplay; para2:cint; para3:Pcint):Pcint;cdecl;
 var XReconfigureWMWindow: function(para1:PDisplay; para2:TWindow; para3:cint; para4:cuint; para5:PXWindowChanges):TStatus;cdecl;
-var XGetWMProtocols: function(para1:PDisplay; para2:TWindow; para3:PPAtom; para4:Pcint):TStatus;cdecl;
-var XSetWMProtocols: function(para1:PDisplay; para2:TWindow; para3:PAtom; para4:cint):TStatus;cdecl;
 var XIconifyWindow: function(para1:PDisplay; para2:TWindow; para3:cint):TStatus;cdecl;
 var XWithdrawWindow: function(para1:PDisplay; para2:TWindow; para3:cint):TStatus;cdecl;
 var XGetCommand: function(para1:PDisplay; para2:TWindow; para3:PPPchar; para4:Pcint):TStatus;cdecl;
@@ -1680,8 +1690,6 @@ var XChangeKeyboardControl: function(para1:PDisplay; para2:culong; para3:PXKeybo
 var XChangeKeyboardMapping: function(para1:PDisplay; para2:cint; para3:cint; para4:PKeySym; para5:cint):cint;cdecl;
 var XChangePointerControl: function(para1:PDisplay; para2:TBool; para3:TBool; para4:cint; para5:cint;
            para6:cint):cint;cdecl;
-var XChangeProperty: function(para1:PDisplay; para2:TWindow; para3:TAtom; para4:TAtom; para5:cint;
-           para6:cint; para7:Pcuchar; para8:cint):cint;cdecl;
 var XChangeSaveSet: function(para1:PDisplay; para2:TWindow; para3:cint):cint;cdecl;
 var XChangeWindowAttributes: function(para1:PDisplay; para2:TWindow; para3:culong; para4:PXSetWindowAttributes):cint;cdecl;
 var XCheckIfEvent: function(para1:PDisplay; para2:PXEvent; para3:funcifevent; para4:TXPointer):TBoolResult;cdecl;
@@ -1762,7 +1770,6 @@ var XFillRectangle: function(para1:PDisplay; para2:TDrawable; para3:TGC; para4:c
 var XFillRectangles: function(para1:PDisplay; para2:TDrawable; para3:TGC; para4:PXRectangle; para5:cint):cint;cdecl;
 var XFlush: function(para1:PDisplay):cint;cdecl;
 var XForceScreenSaver: function(para1:PDisplay; para2:cint):cint;cdecl;
-var XFree: function(para1:pointer):cint;cdecl;
 var XFreeColormap: function(para1:PDisplay; para2:TColormap):cint;cdecl;
 var XFreeColors: function(para1:PDisplay; para2:TColormap; para3:Pculong; para4:cint; para5:culong):cint;cdecl;
 var XFreeCursor: function(ADisplay:PDisplay; ACursor:TCursor):cint;cdecl;
@@ -1791,9 +1798,6 @@ var XGetPointerControl: function(para1:PDisplay; para2:Pcint; para3:Pcint; para4
 var XGetPointerMapping: function(para1:PDisplay; para2:Pcuchar; para3:cint):cint;cdecl;
 var XGetScreenSaver: function(para1:PDisplay; para2:Pcint; para3:Pcint; para4:Pcint; para5:Pcint):cint;cdecl;
 var XGetTransientForHint: function(para1:PDisplay; para2:TWindow; para3:PWindow):TStatus;cdecl;
-var XGetWindowProperty: function(para1:PDisplay; para2:TWindow; para3:TAtom; para4:clong; para5:clong;
-           para6:TBool; para7:TAtom; para8:PAtom; para9:Pcint; para10:Pculong;
-           para11:Pculong; para12:PPcuchar):cint;cdecl;
 var XGetWindowAttributes: function(para1:PDisplay; para2:TWindow; para3:PXWindowAttributes):TStatus;cdecl;
 var XGrabButton: function(para1:PDisplay; para2:cuint; para3:cuint; para4:TWindow; para5:TBool;
            para6:cuint; para7:cint; para8:cint; para9:TWindow; para10:TCursor):cint;cdecl;
@@ -1876,7 +1880,6 @@ var XRotateBuffers: function(para1:PDisplay; para2:cint):cint;cdecl;
 var XRotateWindowProperties: function(para1:PDisplay; para2:TWindow; para3:PAtom; para4:cint; para5:cint):cint;cdecl;
 var XScreenCount: function(para1:PDisplay):cint;cdecl;
 var XSelectInput: function(ADisplay:PDisplay; AWindow:TWindow; AEventMask:clong):cint;cdecl;
-var XSendEvent: function(para1:PDisplay; para2:TWindow; para3:TBool; para4:clong; para5:PXEvent):TStatus;cdecl;
 var XSetAccessControl: function(para1:PDisplay; para2:cint):cint;cdecl;
 var XSetArcMode: function(para1:PDisplay; para2:TGC; para3:cint):cint;cdecl;
 var XSetBackground: function(para1:PDisplay; para2:TGC; para3:culong):cint;cdecl;
@@ -2124,7 +2127,7 @@ var XWMGeometry: function(para1:PDisplay; para2:cint; para3:Pchar; para4:Pchar; 
            para6:PXSizeHints; para7:Pcint; para8:Pcint; para9:Pcint; para10:Pcint;
            para11:Pcint):cint;cdecl;
 var XXorRegion: function(para1:TRegion; para2:TRegion; para3:TRegion):cint;cdecl;
-           
+   
 
 {$ifdef MACROS}
 function ConnectionNumber(dpy : PDisplay) : cint;
@@ -2246,6 +2249,19 @@ begin {go & load the library}
   	if x_Handle <> DynLibs.NilHandle then
 begin {now we tie the functions to the VARs from above}
 
+
+// from fpg_netlayer_x11.pas
+Pointer(XDefaultRootWindow):=DynLibs.GetProcedureAddress(x_Handle,PChar('XDefaultRootWindow'));
+Pointer(XInternAtom):=DynLibs.GetProcedureAddress(x_Handle,PChar('XInternAtom'));
+Pointer(XFree):=DynLibs.GetProcedureAddress(x_Handle,PChar('XFree'));
+Pointer(XGetWindowProperty):=DynLibs.GetProcedureAddress(x_Handle,PChar('XGetWindowProperty'));
+Pointer(XChangeProperty):=DynLibs.GetProcedureAddress(x_Handle,PChar('XChangeProperty'));
+Pointer(XGetWMProtocols):=DynLibs.GetProcedureAddress(x_Handle,PChar('XGetWMProtocols'));
+Pointer(XSendEvent):=DynLibs.GetProcedureAddress(x_Handle,PChar('XSendEvent'));
+Pointer(XSetWMProtocols):=DynLibs.GetProcedureAddress(x_Handle,PChar('XSetWMProtocols'));
+
+// from fpg_x11.pas
+
  Pointer(XLoadQueryFont):=DynLibs.GetProcedureAddress(x_Handle,PChar('XLoadQueryFont'));
  Pointer(XQueryFont):=DynLibs.GetProcedureAddress(x_Handle,PChar('XQueryFont'));
  Pointer(XGetMotionEvents):=DynLibs.GetProcedureAddress(x_Handle,PChar('XGetMotionEvents'));
@@ -2267,7 +2283,6 @@ begin {now we tie the functions to the VARs from above}
  Pointer(XKeysymToString):=DynLibs.GetProcedureAddress(x_Handle,PChar('XKeysymToString'));
  Pointer(XSynchronize):=DynLibs.GetProcedureAddress(x_Handle,PChar('XSynchronize'));
  Pointer(XSetAfterFunction):=DynLibs.GetProcedureAddress(x_Handle,PChar('XSetAfterFunction'));
- Pointer(XInternAtom):=DynLibs.GetProcedureAddress(x_Handle,PChar('XInternAtom'));
  Pointer(XCopyColormapAndFree):=DynLibs.GetProcedureAddress(x_Handle,PChar('XCopyColormapAndFree'));
  Pointer(XCreateColormap):=DynLibs.GetProcedureAddress(x_Handle,PChar('XCreateColormap'));
  Pointer(XCreatePixmapCursor):=DynLibs.GetProcedureAddress(x_Handle,PChar('XCreatePixmapCursor'));
@@ -2305,7 +2320,6 @@ begin {now we tie the functions to the VARs from above}
  Pointer(XFindOnExtensionList):=DynLibs.GetProcedureAddress(x_Handle,PChar('XFindOnExtensionList'));
  Pointer(XEHeadOfExtensionList):=DynLibs.GetProcedureAddress(x_Handle,PChar('XEHeadOfExtensionList'));
  Pointer(XRootWindow):=DynLibs.GetProcedureAddress(x_Handle,PChar('XRootWindow'));
- Pointer(XDefaultRootWindow):=DynLibs.GetProcedureAddress(x_Handle,PChar('XDefaultRootWindow'));
  Pointer(XRootWindowOfScreen):=DynLibs.GetProcedureAddress(x_Handle,PChar('XRootWindowOfScreen'));
  Pointer(XDefaultVisual):=DynLibs.GetProcedureAddress(x_Handle,PChar('XDefaultVisual'));
  Pointer(XDefaultVisualOfScreen):=DynLibs.GetProcedureAddress(x_Handle,PChar('XDefaultVisualOfScreen'));
@@ -2331,8 +2345,6 @@ begin {now we tie the functions to the VARs from above}
  Pointer(XListPixmapFormats):=DynLibs.GetProcedureAddress(x_Handle,PChar('XListPixmapFormats'));
  Pointer(XListDepths):=DynLibs.GetProcedureAddress(x_Handle,PChar('XListDepths'));
  Pointer(XReconfigureWMWindow):=DynLibs.GetProcedureAddress(x_Handle,PChar('XReconfigureWMWindow'));
- Pointer(XGetWMProtocols):=DynLibs.GetProcedureAddress(x_Handle,PChar('XGetWMProtocols'));
- Pointer(XSetWMProtocols):=DynLibs.GetProcedureAddress(x_Handle,PChar('XSetWMProtocols'));
  Pointer(XIconifyWindow):=DynLibs.GetProcedureAddress(x_Handle,PChar('XIconifyWindow'));
  Pointer(XWithdrawWindow):=DynLibs.GetProcedureAddress(x_Handle,PChar('XWithdrawWindow'));
  Pointer(XGetCommand):=DynLibs.GetProcedureAddress(x_Handle,PChar('XGetCommand'));
@@ -2362,7 +2374,6 @@ begin {now we tie the functions to the VARs from above}
  Pointer(XChangeKeyboardControl):=DynLibs.GetProcedureAddress(x_Handle,PChar('XChangeKeyboardControl'));
  Pointer(XChangeKeyboardMapping):=DynLibs.GetProcedureAddress(x_Handle,PChar('XChangeKeyboardMapping'));
  Pointer(XChangePointerControl):=DynLibs.GetProcedureAddress(x_Handle,PChar('XChangePointerControl'));
- Pointer(XChangeProperty):=DynLibs.GetProcedureAddress(x_Handle,PChar('XChangeProperty'));
  Pointer(XChangeSaveSet):=DynLibs.GetProcedureAddress(x_Handle,PChar('XChangeSaveSet'));
  Pointer(XChangeWindowAttributes):=DynLibs.GetProcedureAddress(x_Handle,PChar('XChangeWindowAttributes'));
  Pointer(XCheckIfEvent):=DynLibs.GetProcedureAddress(x_Handle,PChar('XCheckIfEvent'));
@@ -2422,7 +2433,6 @@ begin {now we tie the functions to the VARs from above}
  Pointer(XFillRectangles):=DynLibs.GetProcedureAddress(x_Handle,PChar('XFillRectangles'));
  Pointer(XFlush):=DynLibs.GetProcedureAddress(x_Handle,PChar('XFlush'));
  Pointer(XForceScreenSaver):=DynLibs.GetProcedureAddress(x_Handle,PChar('XForceScreenSaver'));
- Pointer(XFree):=DynLibs.GetProcedureAddress(x_Handle,PChar('XFree'));
  Pointer(XFreeColormap):=DynLibs.GetProcedureAddress(x_Handle,PChar('XFreeColormap'));
  Pointer(XFreeColors):=DynLibs.GetProcedureAddress(x_Handle,PChar('XFreeColors'));
  Pointer(XFreeCursor):=DynLibs.GetProcedureAddress(x_Handle,PChar('XFreeCursor'));
@@ -2447,7 +2457,6 @@ begin {now we tie the functions to the VARs from above}
  Pointer(XGetPointerMapping):=DynLibs.GetProcedureAddress(x_Handle,PChar('XGetPointerMapping'));
  Pointer(XGetScreenSaver):=DynLibs.GetProcedureAddress(x_Handle,PChar('XGetScreenSaver'));
  Pointer(XGetTransientForHint):=DynLibs.GetProcedureAddress(x_Handle,PChar('XGetTransientForHint'));
- Pointer(XGetWindowProperty):=DynLibs.GetProcedureAddress(x_Handle,PChar('XGetWindowProperty'));
  Pointer(XGetWindowAttributes):=DynLibs.GetProcedureAddress(x_Handle,PChar('XGetWindowAttributes'));
  Pointer(XGrabButton):=DynLibs.GetProcedureAddress(x_Handle,PChar('XGrabButton'));
  Pointer(XGrabKey):=DynLibs.GetProcedureAddress(x_Handle,PChar('XGrabKey'));
@@ -2511,7 +2520,6 @@ begin {now we tie the functions to the VARs from above}
  Pointer(XRotateWindowProperties):=DynLibs.GetProcedureAddress(x_Handle,PChar('XRotateWindowProperties'));
  Pointer(XScreenCount):=DynLibs.GetProcedureAddress(x_Handle,PChar('XScreenCount'));
  Pointer(XSelectInput):=DynLibs.GetProcedureAddress(x_Handle,PChar('XSelectInput'));
- Pointer(XSendEvent):=DynLibs.GetProcedureAddress(x_Handle,PChar('XSendEvent'));
  Pointer(XSetAccessControl):=DynLibs.GetProcedureAddress(x_Handle,PChar('XSetAccessControl'));
  Pointer(XSetArcMode):=DynLibs.GetProcedureAddress(x_Handle,PChar('XSetArcMode'));
  Pointer(XSetBackground):=DynLibs.GetProcedureAddress(x_Handle,PChar('XSetBackground'));
@@ -2719,7 +2727,7 @@ begin {now we tie the functions to the VARs from above}
  Pointer(XUnionRegion):=DynLibs.GetProcedureAddress(x_Handle,PChar('XUnionRegion'));
  Pointer(XWMGeometry):=DynLibs.GetProcedureAddress(x_Handle,PChar('XWMGeometry'));
  Pointer(XXorRegion):=DynLibs.GetProcedureAddress(x_Handle,PChar('XXorRegion'));
- 
+
 end;
    Result := x_IsLoaded;
    ReferenceCounter:=1;   

@@ -216,8 +216,8 @@ begin
   // >
   if xft_IsLoaded then
   begin
-    DynLibs.UnloadLibrary(xft_Handle);
-    xft_Handle:=DynLibs.NilHandle;
+  //  DynLibs.UnloadLibrary(xft_Handle); // not needed
+   xft_Handle:=DynLibs.NilHandle;
   end;
 end;
 
