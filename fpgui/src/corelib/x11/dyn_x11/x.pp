@@ -3,18 +3,6 @@ interface
 uses
   ctypes;
 
-
-{
-  Automatically converted by H2Pas 0.99.15 from x.h
-  The following command line parameters were used:
-    -p
-    -T
-    -S
-    -d
-    -c
-    x.h
-}
-
 {$PACKRECORDS C}
 
 const

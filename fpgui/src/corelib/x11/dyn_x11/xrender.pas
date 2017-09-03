@@ -256,7 +256,7 @@ begin {go & load the library}
   	if xren_Handle <> DynLibs.NilHandle then
 begin {now we tie the functions to the VARs from above}
 
-Pointer(XRenderQueryExtension):=DynLibs.GetProcedureAddress(xren_Handle,PChar('XRenderQueryExtension'));
+ Pointer(XRenderQueryExtension):=DynLibs.GetProcedureAddress(xren_Handle,PChar('XRenderQueryExtension'));
  Pointer(XRenderQueryVersion):=DynLibs.GetProcedureAddress(xren_Handle,PChar('XRenderQueryVersion'));
  Pointer(XRenderQueryFormats):=DynLibs.GetProcedureAddress(xren_Handle,PChar('XRenderQueryFormats'));
  Pointer(XRenderFindVisualFormat):=DynLibs.GetProcedureAddress(xren_Handle,PChar('XRenderFindVisualFormat'));
@@ -290,6 +290,7 @@ begin
   // >
   if xren_IsLoaded() then
   begin
+  if xren_Handle <> DynLibs.NilHandle then 
     DynLibs.UnloadLibrary(xren_Handle);
     xren_Handle:=DynLibs.NilHandle;
   end;

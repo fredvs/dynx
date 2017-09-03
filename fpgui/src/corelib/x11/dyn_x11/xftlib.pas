@@ -1,5 +1,4 @@
 { This is the dynamic loader header of xft library.
-  It includes xrender.pp, xatom.pp and xutil.pp.
   Use xft_load() to dynamically load libXft.so.2
   Fredvs ---> fiens@hotmail.com
 }
@@ -17,7 +16,7 @@ uses
   ;
     
 const
-  libXft='/usr/local/lib/libXft.so.2';
+  libXft='libXft.so.2';
 
  type
   TPicture = longword;
@@ -205,7 +204,8 @@ begin
   // >
   if xft_IsLoaded() then
   begin
-  //  DynLibs.UnloadLibrary(xft_Handle); // not needed
+   if xft_Handle <> DynLibs.NilHandle then 
+  // DynLibs.UnloadLibrary(xft_Handle);  // crash ???
    xft_Handle:=DynLibs.NilHandle;
   end;
 end;

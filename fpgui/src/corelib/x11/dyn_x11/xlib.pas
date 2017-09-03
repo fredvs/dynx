@@ -1,5 +1,5 @@
 { This is the dynamic loader header of xlib library.
-  It includes xrender.pp, xatom.pp and xutil.pp.
+  It includes xatom.pp and xutil.pp.
   Use x_load() to dynamically load libX11.so.6
   Fredvs ---> fiens@hotmail.com
 }  
@@ -2199,26 +2199,7 @@ function IsModifierKey(keysym : TKeySym) : Boolean;
 
 {$endif MACROS}
 
-// Overloaded functions to handle TBool parameters as actual booleans.
-{
-
-function XClearArea(para1:PDisplay; para2:TWindow; para3:cint; para4:cint; para5:cuint; para6:cuint; para7:Boolean):cint;
-function XGetWindowProperty(para1:PDisplay; para2:TWindow; para3:TAtom; para4:clong; para5:clong;
-           para6:Boolean; para7:TAtom; para8:PAtom; para9:Pcint; para10:Pculong;
-           para11:Pculong; para12:PPcuchar):cint;
-function XGrabKeyboard(para1:PDisplay; para2:TWindow; para3:Boolean; para4:cint; para5:cint; para6:TTime):cint;
-function XGrabPointer(para1:PDisplay; para2:TWindow; para3:Boolean; para4:cuint; para5:cint;
-           para6:cint; para7:TWindow; para8:TCursor; para9:TTime):cint;
-function XInternAtom(para1:PDisplay; para2:Pchar; para3:Boolean):TAtom;
-function XInternAtoms(para1:PDisplay; para2:PPchar; para3:cint; para4:Boolean; para5:PAtom):TStatus;
-function XSendEvent(para1:PDisplay; para2:TWindow; para3:Boolean; para4:clong; para5:PXEvent):TStatus;
-function XSetGraphicsExposures(para1:PDisplay; para2:TGC; para3:Boolean):cint;
-function XSync(para1:PDisplay; para2:Boolean):cint; 
-function XSynchronize(para1:PDisplay; para2:Boolean):funcdisp;
-//}
-
-
- var x_Handle:TLibHandle=dynlibs.NilHandle; // this will hold our handle for the lib; it functions nicely as a mutli-lib prevention unit as well...
+var x_Handle:TLibHandle=dynlibs.NilHandle; // this will hold our handle for the lib; it functions nicely as a mutli-lib prevention unit as well...
 
     var ReferenceCounter : cardinal = 0;  // Reference counter
          
@@ -2749,9 +2730,6 @@ begin
     x_Handle:=DynLibs.NilHandle;
   end;
 end;
-
-
-
 
 {$ifdef MACROS}
 function ConnectionNumber(dpy : PDisplay) : cint;
