@@ -1,0 +1,25 @@
+Here how to do to dynamically load Xlib and Xftlib with fpGUI.
+
+1) Copy all files of /dynx/fpc in the directory of your project.
+
+2) Add in uses section of your program:
+
+  uses fpg_dynload, ...
+
+3) Add this just before fpgApplication.Initialize:
+  
+  --> fpg_loaddynlib();
+ 
+4) Add in directory search path for compiler:
+
+  /thedirof/dyn_x11
+
+5) Uncomment in fpg_x11.pas :
+   
+ --->  {$Define DYNLOAD} 
+
+6) Compile your program.
+
+
+   
+   
