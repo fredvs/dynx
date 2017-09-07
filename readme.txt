@@ -8,5 +8,7 @@
  And there is the Pascal dynamic loader header of Xrender library.
  Use xren_load() to dynamically load libXrender.so.1 
 
+And there is the Pascal dynamic loader header of PThreads library.
+ 
   Fredvs ---> fiens@hotmail.com
 
