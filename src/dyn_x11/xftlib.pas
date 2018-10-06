@@ -7,7 +7,7 @@ unit xftlib;
 interface
 {$mode objfpc}{$H+}
 
-{$define initload} // uncomment if you want to load at init
+{.$define initload} // uncomment if you want to load at init
 
 uses
   Classes
