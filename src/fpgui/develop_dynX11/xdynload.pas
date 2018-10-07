@@ -43,9 +43,9 @@ end;
 
 procedure xdynunloadlib() ;
 begin
+ //  xext_unLoad();  // done by X_unload
   xft_unLoad();
   x_unLoad();
-  xext_unLoad();
-end;
+ end;
 
 end.
