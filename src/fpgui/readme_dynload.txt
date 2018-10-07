@@ -16,3 +16,6 @@
   Edit define.inc and comment {$.DEFINE DYNLOAD}
 
 By default, designer_ext use fpGUI-maint 1.4 branch and dynamic loading of Xlib, Xft and Pthread.
+
+To load the libraries, add xdynloadlib() before fpgApplication.Initialize.
+To unload the libraries, add xdynunloadlib() after fpgApplication.Run;
