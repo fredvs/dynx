@@ -16,5 +16,5 @@ To unload the libraries, add xdynunloadlib() after fpgApplication.Run;
   Delete all files in your project directory that are also in /src/dynX11. 
   Delete all files in your project directory  that are also in /src/xxx_dynx11.
   Delete all files in your project directory that are also in /src/pthread.
-  Edit define.inc and comment {$.DEFINE DYNLOAD}
+  Edit fpg_x11.pas and change {$DEFINE DYNLOAD} to {$.DEFINE DYNLOAD}
 
