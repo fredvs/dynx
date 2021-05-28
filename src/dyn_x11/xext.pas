@@ -59,9 +59,9 @@ begin {go & load the library}
   	if xext_Handle <> DynLibs.NilHandle then
 begin {now we tie the functions to the VARs from above}
 
- Pointer(XSyncCreateCounter):=DynLibs.GetProcedureAddress(xren_Handle,PChar('XSyncCreateCounter'));
- Pointer(XSyncSetCounter):=DynLibs.GetProcedureAddress(xren_Handle,PChar('XSyncSetCounter'));
- Pointer(XSyncDestroyCounter):=DynLibs.GetProcedureAddress(xren_Handle,PChar('XSyncDestroyCounter'));
+ Pointer(XSyncCreateCounter):=DynLibs.GetProcedureAddress(xext_Handle,PChar('XSyncCreateCounter'));
+ Pointer(XSyncSetCounter):=DynLibs.GetProcedureAddress(xext_Handle,PChar('XSyncSetCounter'));
+ Pointer(XSyncDestroyCounter):=DynLibs.GetProcedureAddress(xext_Handle,PChar('XSyncDestroyCounter'));
  
 end;
    Result := xext_IsLoaded();
